@@ -27,7 +27,8 @@ class Sort:
         self.Excels,self.Words,self.Pictures,self.PDFs,self.Code,self.Text,self.unsorted,self.ppt,self.vid,self.audio = [],[],[],[],[],[],[],[],[],[]
         file = os.listdir(self.path)
         print(f'Scanning files in path {file}')
-        for x in file:
+        for y in file:
+            x = y.lower()
             if x.endswith('.csv') or x.endswith('.xlsx') or x.endswith('.xlsm') or x.endswith('.xls'):
                 self.Excels.append(x)
             elif x.endswith('docx') or x.endswith('.doc'):
@@ -52,26 +53,35 @@ class Sort:
     
     def file_sorter(self,list,type):
         for x in list:
-            if not os.path.isdir(x):
-                self.mkdirectory_handler(type,x,x)
-            else:
-                print(f'{x} is a folder. Does not need sorting.')
+            try:
+                if not os.path.isdir(x):
+                    self.mkdirectory_handler(type,x,x)
+                else:
+                    print(f'{x} is a folder. Does not need sorting.')
+            except Exception as e:
+                print(f'{x} not sorted. Error: {e}')
 
     def scan_header(self,list):
         for x in list:
-            if '~' in x:
-                splitted_names = x.split('~')
-                newx = x.replace(f'{splitted_names[0]}~','')
-                self.mkdirectory_handler(splitted_names[0],x,newx)
-            else:
-                pass
+            try:
+                if '~' in x:
+                    splitted_names = x.split('~')
+                    newx = x.replace(f'{splitted_names[0]}~','')
+                    self.mkdirectory_handler(splitted_names[0],x,newx)
+                else:
+                    pass
+            except Exception as e:
+                print(f'{x} not sorted. Error: {e}')
 
     def unsorted_folder(self,list):
         for x in list:
-            if not os.path.isdir(x):
-                self.mkdirectory_handler('Unsorted_Items',x,x)
-            else:
-                print(f'{x} is a folder. Does not need sorting.')
+            try:
+                if not os.path.isdir(x):
+                    self.mkdirectory_handler('Unsorted_Items',x,x)
+                else:
+                    print(f'{x} is a folder. Does not need sorting.')
+            except Exception as e:
+                print(f'{x} not sorted. Error: {e}')
 
     def mkdirectory_handler(self,header,ori,new):
         newpath = f'{self.path}\\{header}'
