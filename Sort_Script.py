@@ -18,7 +18,7 @@ class Sort:
             for x in self.arglist:
                 self.scan_header(x)
             self.scan_files()
-        for x in range(0,8):
+        for x in range(0,10):
             self.file_sorter(self.arglist[x],self.type[x]) #Sort Word, PDFs, PowerPoint, Pictures, TextFiles, Code
         self.unsorted_folder(self.unsorted)
         print('Files Reorganized. ')
