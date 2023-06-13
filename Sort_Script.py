@@ -28,7 +28,7 @@ class Sort:
         file = os.listdir(self.path)
         print(f'Scanning files in path {file}')
         for y in file:
-            x = y.lower()
+            x = os.path.join(self.path,y.lower())
             if x.endswith('.csv') or x.endswith('.xlsx') or x.endswith('.xlsm') or x.endswith('.xls'):
                 self.Excels.append(x)
             elif x.endswith('docx') or x.endswith('.doc'):
